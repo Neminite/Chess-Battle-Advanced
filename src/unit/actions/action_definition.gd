@@ -49,14 +49,16 @@ var full_path: Array:
 
 func to_action_instance(unit: Unit) -> ActionInstance:
 	var current_cell: Vector2i = unit.cell
+	var current_rot: int = unit.move_rotation
 	var ac = ActionInstance.new(self, unit)
 	
 	# WORKAROUND, fix if https://github.com/godotengine/godot/pull/71336 is merged
 	var instanced_path: Array[Vector2i]
 	instanced_path.assign(path.map(
 		func (cell):
-			return cell + current_cell
+			return Navigation.localize_hex(cell, current_cell, current_rot)
 	))
 	ac.path = instanced_path
-	ac.end_point = end_point + current_cell
+	ac.end_point = Navigation.localize_hex(end_point, current_cell, current_rot)
 	return ac
+	

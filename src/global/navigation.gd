@@ -58,13 +58,35 @@ func oddq_from_axial(pos: Vector2i) -> Vector2i:
 	var row = pos.y + ((pos.x - (pos.x & 1)) / 2)
 	return Vector2(col, row)
 
-func oddq_to_axial(pos: Vector2i)  -> Vector2i:
+func oddq_to_axial(pos: Vector2i) -> Vector2i:
 	# pos.x = col, pos.y = row
 	var q = pos.x
 	@warning_ignore("integer_division")
 	var r = pos.y - ((pos.x - (pos.x & 1)) / 2)
 	# var s = -q - r;
 	return Vector2(q, r)
+	
+func rotate_hex_around_origin(pos: Vector2i, hex_rotation: int) -> Vector2i:
+	# Rotation 0-5, 3 = 180deg. Rotations are clockwise
+	match hex_rotation:
+		0: # Note pos.x + pos.y = -s = -(-q-r)
+			return pos
+		1:
+			return Vector2i(-pos.y, pos.x + pos.y)
+		2:
+			return Vector2i(-pos.x -pos.y, pos.x)
+		3:
+			return Vector2i(-pos.x, -pos.y)
+		4:
+			return Vector2i(pos.y, -pos.x - pos.y)
+		5:
+			return Vector2i(pos.x + pos.y, -pos.x)
+		_:
+			assert(false, "hex_rotation must be in the range of 0-5")
+			return Vector2i(0, 0)
+			
+func localize_hex(global_hex: Vector2i, local_pos: Vector2i, local_rot: int) -> Vector2i:
+	return rotate_hex_around_origin(global_hex, local_rot) + local_pos
 
 enum BlockReason {
 	NONE,
@@ -146,17 +168,19 @@ func is_ai_endpoint_tile_valid(ai: ActionInstance, subscribed_tiles = {}) -> boo
 		return units_on_tile.any(func(unit_on_tile): return not unit_on_tile.is_unit_ally(ai.unit))
 	return true
 	
-func get_enemy_on_cell(unit: Unit, cell: Vector2i) -> Unit:
+func get_units_on_cell(cell: Vector2i) -> Array[Unit]:
 	var cell_properties: Dictionary = hexmap.get(cell)
 	if not cell_properties:
 		# Cell not in cell map
-		return null
-	var units_on_tile: Array[Unit] = cell_properties[HexProperties.UNITS_ON_TILE]
+		return []
+	return cell_properties[HexProperties.UNITS_ON_TILE]
+	
+func get_enemy_on_cell(unit: Unit, cell: Vector2i) -> Unit:
+	var units_on_tile: Array[Unit] = get_units_on_cell(cell)
 	var enemy_index = units_on_tile.find_custom(func(unit_on_tile): return not unit_on_tile.is_unit_ally(unit))
 	if enemy_index >= 0:
 		return units_on_tile[enemy_index]
 	return null
-	
 
 func unsubscibe_from_cells(unit: Unit, cells: Dictionary[Vector2i, bool]) -> void:
 	for cell in cells.keys():

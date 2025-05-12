@@ -6,6 +6,7 @@ signal unit_captured
 
 @export var def: UnitDefinition
 @export var team: int
+@export var energy: int
 ## Defines the rotation , 0 = Not rotated, 3 = 180deg
 @export var move_rotation: int = 0
 @export var move_speed_per_cell: float = 0.15

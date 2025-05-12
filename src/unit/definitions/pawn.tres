@@ -1,0 +1,63 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=7 format=3 uid="uid://cch7ys3ut1tus"]
+
+[ext_resource type="Script" uid="uid://bccsvcfs76tll" path="res://src/unit/definitions/unit_definition.gd" id="1_0robb"]
+[ext_resource type="Script" uid="uid://baknyc7y2v3o2" path="res://src/unit/action_definition.gd" id="1_1reuq"]
+[ext_resource type="Texture2D" uid="uid://ctu8iojrixvyx" path="res://assets/units/pawn/white_pawn.png" id="3_cslrj"]
+
+[sub_resource type="Resource" id="Resource_cslrj"]
+script = ExtResource("1_1reuq")
+tile_block_mode = 0
+ally_unit_block_mode = 0
+enemy_unit_block_mode = 0
+blocking_tile_types = Array[int]([1, 2])
+blocking_unit_category = Array[int]([0])
+path = Array[Vector2i]([Vector2i(0, -1)])
+end_point = Vector2i(0, -1)
+invalid_end_tile_types = Array[int]([1, 2])
+generate_subpaths = false
+require_enemy = false
+move_unit = true
+capture_enemy = false
+metadata/_custom_type_script = "uid://baknyc7y2v3o2"
+
+[sub_resource type="Resource" id="Resource_oqbey"]
+script = ExtResource("1_1reuq")
+tile_block_mode = 0
+ally_unit_block_mode = 0
+enemy_unit_block_mode = 3
+blocking_tile_types = Array[int]([1, 2])
+blocking_unit_category = Array[int]([0])
+path = Array[Vector2i]([Vector2i(-1, 0)])
+end_point = Vector2i(-1, 0)
+invalid_end_tile_types = Array[int]([1, 2])
+generate_subpaths = false
+require_enemy = true
+move_unit = true
+capture_enemy = true
+metadata/_custom_type_script = "uid://baknyc7y2v3o2"
+
+[sub_resource type="Resource" id="Resource_inu4t"]
+script = ExtResource("1_1reuq")
+tile_block_mode = 0
+ally_unit_block_mode = 0
+enemy_unit_block_mode = 3
+blocking_tile_types = Array[int]([1, 2])
+blocking_unit_category = Array[int]([0])
+path = Array[Vector2i]([Vector2i(1, -1)])
+end_point = Vector2i(1, -1)
+invalid_end_tile_types = Array[int]([1, 2])
+generate_subpaths = false
+require_enemy = true
+move_unit = true
+capture_enemy = true
+metadata/_custom_type_script = "uid://baknyc7y2v3o2"
+
+[resource]
+script = ExtResource("1_0robb")
+category = 0
+type = 0
+name = ""
+sprite = ExtResource("3_cslrj")
+type_components = Array[PackedScene]([])
+move_definitions = Array[ExtResource("1_1reuq")]([SubResource("Resource_cslrj"), SubResource("Resource_oqbey"), SubResource("Resource_inu4t")])
+metadata/_custom_type_script = "uid://bccsvcfs76tll"

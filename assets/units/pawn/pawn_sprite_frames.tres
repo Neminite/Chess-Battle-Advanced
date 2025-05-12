@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://eurtnlhw0cju"]
+
+[ext_resource type="Texture2D" uid="uid://ctu8iojrixvyx" path="res://assets/units/pawn/white_pawn.png" id="1_4qfa5"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4qfa5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]

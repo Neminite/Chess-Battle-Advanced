@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2edwlifexa22"]
+
+[ext_resource type="Script" uid="uid://dyhogeg4glho3" path="res://src/controller/unit_controller.gd" id="1_j7mds"]
+
+[node name="UnitController" type="Node2D"]
+z_index = 1
+script = ExtResource("1_j7mds")

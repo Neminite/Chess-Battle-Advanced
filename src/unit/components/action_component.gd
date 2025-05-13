@@ -23,10 +23,13 @@ func _filter_ais(ais: Array[ActionInstance]) -> Array[ActionInstance]:
 	var valid: Array[ActionInstance] = []
 	
 	for ai in ais:	
+		if not _do_predicates_pass(ai):
+			continue
+		
 		if  ai.definition.tile_block_mode == ActionDefinition.BlockMode.IGNORE and \
 			ai.definition.ally_unit_block_mode == ActionDefinition.BlockMode.IGNORE and \
 			ai.definition.enmemy_unit_block_mode == ActionDefinition.BlockMode.IGNORE:
-				_process_unblocked(valid,ai)
+				_process_unblocked(valid, ai)
 				continue
 		
 		var block_result: Dictionary = Navigation.get_ai_block_point_and_reason(ai, subscribed_tiles)
@@ -48,29 +51,47 @@ func _filter_ais(ais: Array[ActionInstance]) -> Array[ActionInstance]:
 				else:
 					block_mode = ActionDefinition.BlockMode.TRUNCATE_BEFORE
 			Navigation.BlockReason.NONE: # Path was not blocked
-				_process_unblocked(valid,ai)
+				_process_unblocked(valid, ai)
 				continue
 		
-		if block_mode == ActionDefinition.BlockMode.TRUNCATE_BEFORE:
-			ai.end_point = block
-			var idx = ai.full_path.find(ai.end_point)
-			ai.path = ai.full_path.slice(0, idx)
-			if ai.path.size() > 0:
-				_process_unblocked(valid,ai)
-			continue
-		
-		if block_mode == ActionDefinition.BlockMode.TRUNCATE_ON:
-			var idx = ai.full_path.find(block)
-			ai.path = ai.full_path.slice(0, idx + 1)
-			ai.end_point = ai.path[ai.path.size() - 1]
-			_process_unblocked(valid,ai)
+		match block_mode:
+			ActionDefinition.BlockMode.TRUNCATE_BEFORE:
+				ai.end_point = block
+				var idx = ai.full_path.find(ai.end_point)
+				ai.path = ai.full_path.slice(0, idx)
+				if ai.path.size() > 0:
+					_process_unblocked(valid, ai)
+				continue
+			ActionDefinition.BlockMode.TRUNCATE_ON:
+				var idx = ai.full_path.find(block)
+				ai.path = ai.full_path.slice(0, idx + 1)
+				ai.end_point = ai.path[ai.path.size() - 1]
+				_process_unblocked(valid, ai)
+			ActionDefinition.BlockMode.CANCEL:
+				continue
+			_:
+				printerr("Error: Unnhandled blockMode in action_component")
 	
 	return valid
+	
+## This function will evaluate all non-endpoint predicates and return true if they all pass
+func _do_predicates_pass(ai: ActionInstance) -> bool:
+	# Return true if there are NOT any predicates that do NOT pass. (If all predicates pass)
+	return not ai.predicate_instances.any(func(inst: ActionPredicateInstance): not inst.evaluate())
+	
+func _do_endpoint_predicates_pass(ai: ActionInstance) -> bool:
+	var endpoint_predicate_instances: Array[ActionPredicateInstance]
+	endpoint_predicate_instances.assign(ai.endpoint_predicates.map(
+		func(ep_pred: ActionPredicate): return ep_pred.to_endpoint_predicate_instance(ai.end_point, ai.unit)
+		))
+	# Return true if there are NOT any predicates that do NOT pass. (If all predicates pass)
+	return not endpoint_predicate_instances.any(func(inst: ActionPredicateInstance): not inst.evaluate())
 
 ## This function will validate the endpoint of the AI, generate subpaths if necessary, 
 ## and append valid AIs to the input array
 func _process_unblocked(valid_ais: Array[ActionInstance], ai: ActionInstance):
-	if Navigation.is_ai_endpoint_tile_valid(ai, subscribed_tiles):
+	if Navigation.is_ai_endpoint_tile_valid(ai, subscribed_tiles) \
+			and _do_endpoint_predicates_pass(ai):
 		valid_ais.append(ai)
 	if ai.definition.generate_subpaths and ai.path.size() > 1:
 		var ai_subpath = ai.duplicate()

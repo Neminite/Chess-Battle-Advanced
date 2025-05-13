@@ -182,6 +182,11 @@ func get_enemy_on_cell(unit: Unit, cell: Vector2i) -> Unit:
 		return units_on_tile[enemy_index]
 	return null
 
+func subscribe_unit_to_cell(unit: Unit, cell: Vector2i) -> void:
+	var cell_properties: Dictionary = hexmap.get(cell)
+	_subscribe_unit_to_cell(unit, cell, cell_properties, unit.action_componet.subscribed_tiles)
+	return
+
 func unsubscibe_from_cells(unit: Unit, cells: Dictionary[Vector2i, bool]) -> void:
 	for cell in cells.keys():
 		var cell_properties: Dictionary = hexmap.get(cell)

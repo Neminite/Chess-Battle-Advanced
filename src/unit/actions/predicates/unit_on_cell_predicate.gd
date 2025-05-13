@@ -14,8 +14,9 @@ func to_predicate_instance(unit: Unit = null) -> ActionPredicateInstance:
 	assert(unit != null, "UnitOnCellPredicate requires unit in instantiation")
 	var current_cell: Vector2i = unit.cell
 	var current_rot: int = unit.move_rotation
+	var pred_cell: Vector2i = Navigation.localize_hex(cell, current_cell, current_rot)
 	var pred = UnitOnCellPredicateInstance.new(
-		Navigation.localize_hex(cell, current_cell, current_rot),
+		pred_cell,
 		team,
 		required_unit_count)
 	if require_ally or require_enemy:
@@ -25,7 +26,15 @@ func to_predicate_instance(unit: Unit = null) -> ActionPredicateInstance:
 	if require_enemy:
 		pred.exclude_team = true
 	
+	# If a unit is looking at a cell, we want to update the unit when that cell changes
+	Navigation.subscribe_unit_to_cell(unit, pred_cell)
+	
 	return pred
+	
+func to_endpoint_predicate_instance(endpoint: Vector2i, unit: Unit = null) -> ActionPredicateInstance:
+	var instance: UnitOnCellPredicateInstance = to_predicate_instance(unit);
+	instance.cell += endpoint
+	return instance
 
 class UnitOnCellPredicateInstance extends ActionPredicateInstance:
 	var cell: Vector2i

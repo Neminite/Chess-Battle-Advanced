@@ -29,19 +29,22 @@ enum BlockMode {
 @export var path: Array[Vector2i] = []
 ## All values relative to the origin at (0, 0)
 @export var end_point: Vector2i
-## All tile types that block this action's endpoint
+## All tile types that block this action's endpoint TODO: Replace this with a predicate
 @export var invalid_end_tile_types: Array[Constants.TileTypes] = \
 	[Constants.TileTypes.MOUNTAIN, 
 	 Constants.TileTypes.PIT]
+## If this move requires an enemy at the end point TODO: Replace this with a predicate
+@export var require_enemy: bool = false
 ## If this is true, moves will be generated for each tile in the path only rechecking the end tile
 @export var generate_subpaths: bool = false
-## If this move requires an enemy at the end point
-@export var require_enemy: bool = false
 ## If the unit that executes this action will move
 @export var move_unit: bool = true
 ## If the enemy at the endpoint will be captured when executing this move
 @export var capture_enemy = true
-
+## List of required predicates to validate
+@export var predicates: Array[ActionPredicate] = []
+## List of predicates to evaluate at endpoint
+@export var endpoint_predicates: Array[ActionPredicate] = []
 
 var full_path: Array:
 	get:
@@ -50,7 +53,9 @@ var full_path: Array:
 func to_action_instance(unit: Unit) -> ActionInstance:
 	var current_cell: Vector2i = unit.cell
 	var current_rot: int = unit.move_rotation
-	var ac = ActionInstance.new(self, unit)
+	var predicate_instances: Array[ActionPredicateInstance] 
+	predicate_instances.assign(predicates.map(func(pred): return pred.to_predicate_instance(unit)))
+	var ac = ActionInstance.new(self, unit, predicate_instances, endpoint_predicates)
 	
 	# WORKAROUND, fix if https://github.com/godotengine/godot/pull/71336 is merged
 	var instanced_path: Array[Vector2i]

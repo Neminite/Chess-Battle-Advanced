@@ -132,7 +132,6 @@ func _process_left_click(pos: Vector2) -> void:
 		)
 		if ai_index >= 0:
 			execute_action(selected_unit.available_actions[ai_index])
-		
 
 
 func _unhandled_input(event: InputEvent) -> void:

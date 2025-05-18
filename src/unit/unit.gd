@@ -9,6 +9,7 @@ signal unit_captured
 @export var energy: int
 ## Defines the rotation , 0 = Not rotated, 3 = 180deg
 @export var move_rotation: int = 0
+@export var range: int = 1
 @export var move_speed_per_cell: float = 0.15
 
 @onready var action_componet: ActionComponenet = %action_component

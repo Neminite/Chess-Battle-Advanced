@@ -86,6 +86,7 @@ func execute_action(ai: ActionInstance) -> void:
 			_advance_turn()
 		TurnTypes.COOLDOWN_BASED_INSTANT, TurnTypes.COOLDOWN_BASED_TRAVEL_TIME:
 			pass
+	unit.energy -= ai.definition.consume_energy
 	selected_unit = null
 	
 	

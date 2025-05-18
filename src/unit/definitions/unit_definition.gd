@@ -17,3 +17,5 @@ enum Type {
 @export var sprite: Texture2D
 @export var type_components: Array[PackedScene] = []
 @export var move_definitions: Array[ActionDefinition]
+@export var range: int = 1
+@export var starting_energy: int = 1

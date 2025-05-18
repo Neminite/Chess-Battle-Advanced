@@ -29,11 +29,11 @@ enum BlockMode {
 @export var path: Array[Vector2i] = []
 ## All values relative to the origin at (0, 0)
 @export var end_point: Vector2i
-## All tile types that block this action's endpoint TODO: Replace this with a predicate
+## All tile types that block this action's endpoint
 @export var invalid_end_tile_types: Array[Constants.TileTypes] = \
 	[Constants.TileTypes.MOUNTAIN, 
 	 Constants.TileTypes.PIT]
-## If this move requires an enemy at the end point TODO: Replace this with a predicate
+## If this move requires an enemy at the end point
 @export var require_enemy: bool = false
 ## If this is true, moves will be generated for each tile in the path only rechecking the end tile
 @export var generate_subpaths: bool = false
@@ -41,10 +41,13 @@ enum BlockMode {
 @export var move_unit: bool = true
 ## If the enemy at the endpoint will be captured when executing this move
 @export var capture_enemy = true
+## How much energy is required for this action
+@export var required_energy: int = 0
+@export var consume_energy: int = 0
 ## List of required predicates to validate
-@export var predicates: Array[ActionPredicate] = []
+@export var unit_predicates: Array[UnitOnCellPredicate] = []
 ## List of predicates to evaluate at endpoint
-@export var endpoint_predicates: Array[ActionPredicate] = []
+@export var endpoint_unit_predicates: Array[UnitOnCellPredicate]
 ## Whether to duplicate path based on range
 @export var affected_by_range: bool = false
 
@@ -55,9 +58,9 @@ var full_path: Array:
 func to_action_instance(unit: Unit) -> ActionInstance:
 	var current_cell: Vector2i = unit.cell
 	var current_rot: int = unit.move_rotation
-	var predicate_instances: Array[ActionPredicateInstance] 
-	predicate_instances.assign(predicates.map(func(pred): return pred.to_predicate_instance(unit)))
-	var ac = ActionInstance.new(self, unit, predicate_instances, endpoint_predicates)
+	var unit_predicate_instances: Array[UnitOnCellPredicateInstance] 
+	unit_predicate_instances.assign(unit_predicates.map(func(pred): return pred.to_predicate_instance(unit)))
+	var ac = ActionInstance.new(self, unit, unit_predicate_instances, endpoint_unit_predicates)
 	
 	# Calculate how range affects the ability
 	var constructed_path: Array[Vector2i] = path.duplicate()

@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="UnitDefinition" load_steps=8 format=3 uid="uid://cch7ys3ut1tus"]
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=9 format=3 uid="uid://cch7ys3ut1tus"]
 
 [ext_resource type="Script" uid="uid://bccsvcfs76tll" path="res://src/unit/definitions/unit_definition.gd" id="1_0robb"]
 [ext_resource type="Script" uid="uid://baknyc7y2v3o2" path="res://src/unit/actions/action_definition.gd" id="1_1reuq"]
-[ext_resource type="Script" uid="uid://qgd2a67c2ntf" path="res://src/unit/actions/predicates/action_predicate.gd" id="2_oqbey"]
+[ext_resource type="Script" uid="uid://dsbuhnvbvr7uh" path="res://src/unit/actions/predicates/unit_on_cell_predicate.gd" id="2_oqbey"]
 [ext_resource type="Texture2D" uid="uid://ctu8iojrixvyx" path="res://assets/units/pawn/white_pawn.png" id="3_cslrj"]
 
 [sub_resource type="Resource" id="Resource_cslrj"]
@@ -19,8 +19,11 @@ require_enemy = false
 generate_subpaths = false
 move_unit = true
 capture_enemy = false
-predicates = Array[ExtResource("2_oqbey")]([])
-endpoint_predicates = Array[ExtResource("2_oqbey")]([])
+required_energy = 0
+consume_energy = 0
+unit_predicates = Array[ExtResource("2_oqbey")]([])
+endpoint_unit_predicates = Array[ExtResource("2_oqbey")]([])
+affected_by_range = false
 metadata/_custom_type_script = "uid://baknyc7y2v3o2"
 
 [sub_resource type="Resource" id="Resource_oqbey"]
@@ -37,8 +40,11 @@ require_enemy = true
 generate_subpaths = false
 move_unit = true
 capture_enemy = true
-predicates = Array[ExtResource("2_oqbey")]([])
-endpoint_predicates = Array[ExtResource("2_oqbey")]([])
+required_energy = 0
+consume_energy = 0
+unit_predicates = Array[ExtResource("2_oqbey")]([])
+endpoint_unit_predicates = Array[ExtResource("2_oqbey")]([])
+affected_by_range = false
 metadata/_custom_type_script = "uid://baknyc7y2v3o2"
 
 [sub_resource type="Resource" id="Resource_inu4t"]
@@ -55,8 +61,32 @@ require_enemy = true
 generate_subpaths = false
 move_unit = true
 capture_enemy = true
-predicates = Array[ExtResource("2_oqbey")]([])
-endpoint_predicates = Array[ExtResource("2_oqbey")]([])
+required_energy = 0
+consume_energy = 0
+unit_predicates = Array[ExtResource("2_oqbey")]([])
+endpoint_unit_predicates = Array[ExtResource("2_oqbey")]([])
+affected_by_range = false
+metadata/_custom_type_script = "uid://baknyc7y2v3o2"
+
+[sub_resource type="Resource" id="Resource_y6miv"]
+script = ExtResource("1_1reuq")
+tile_block_mode = 0
+ally_unit_block_mode = 0
+enemy_unit_block_mode = 0
+blocking_tile_types = Array[int]([1, 2])
+blocking_unit_category = Array[int]([0])
+path = Array[Vector2i]([Vector2i(0, -1), Vector2i(0, -2)])
+end_point = Vector2i(0, -2)
+invalid_end_tile_types = Array[int]([1, 2])
+require_enemy = false
+generate_subpaths = false
+move_unit = true
+capture_enemy = false
+required_energy = 1
+consume_energy = 1
+unit_predicates = Array[ExtResource("2_oqbey")]([])
+endpoint_unit_predicates = Array[ExtResource("2_oqbey")]([])
+affected_by_range = false
 metadata/_custom_type_script = "uid://baknyc7y2v3o2"
 
 [resource]
@@ -66,5 +96,7 @@ type = 0
 name = ""
 sprite = ExtResource("3_cslrj")
 type_components = Array[PackedScene]([])
-move_definitions = Array[ExtResource("1_1reuq")]([SubResource("Resource_cslrj"), SubResource("Resource_oqbey"), SubResource("Resource_inu4t")])
+move_definitions = Array[ExtResource("1_1reuq")]([SubResource("Resource_cslrj"), SubResource("Resource_oqbey"), SubResource("Resource_inu4t"), SubResource("Resource_y6miv")])
+range = 1
+starting_energy = 1
 metadata/_custom_type_script = "uid://bccsvcfs76tll"

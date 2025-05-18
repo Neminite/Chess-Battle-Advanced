@@ -89,6 +89,8 @@ func _ready() -> void:
 
 func _init_def() -> void:
 	sprite.texture = def.sprite
+	range = def.range
+	energy = def.starting_energy
 	#sprite.sprite_frames = def.frames
 	#sprite.play()
 	

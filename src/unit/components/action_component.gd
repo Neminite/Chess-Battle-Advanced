@@ -74,20 +74,18 @@ func _filter_ais(ais: Array[ActionInstance]) -> Array[ActionInstance]:
 	
 	return valid
 	
-## This function will evaluate all non-endpoint predicates and return true if they all pass (energy counts as predicate)
+## This function will evaluate all non-endpoint predicates and return true if they all pass
 func _do_predicates_pass(ai: ActionInstance) -> bool:
-	if ai.unit.energy < ai.definition.required_energy:
-		return false
 	# Return true if there are NOT any predicates that do NOT pass. (If all predicates pass)
-	return not ai.unit_predicate_instances.any(func(inst: UnitOnCellPredicateInstance): not inst.evaluate())
+	return not ai.predicate_instances.any(func(inst: ActionPredicateInstance): not inst.evaluate())
 	
 func _do_endpoint_predicates_pass(ai: ActionInstance) -> bool:
-	var endpoint_predicate_instances: Array[UnitOnCellPredicateInstance]
-	endpoint_predicate_instances.assign(ai.unit_endpoint_predicates.map(
-		func(ep_pred: UnitOnCellPredicate): return ep_pred.to_endpoint_predicate_instance(ai.end_point, ai.unit)
+	var endpoint_predicate_instances: Array[ActionPredicateInstance]
+	endpoint_predicate_instances.assign(ai.endpoint_predicates.map(
+		func(ep_pred: ActionPredicate): return ep_pred.to_endpoint_predicate_instance(ai.end_point, ai.unit)
 		))
 	# Return true if there are NOT any predicates that do NOT pass. (If all predicates pass)
-	return not endpoint_predicate_instances.any(func(inst: UnitOnCellPredicateInstance): not inst.evaluate())
+	return not endpoint_predicate_instances.any(func(inst: ActionPredicateInstance): not inst.evaluate())
 
 ## This function will validate the endpoint of the AI, generate subpaths if necessary, 
 ## and append valid AIs to the input array

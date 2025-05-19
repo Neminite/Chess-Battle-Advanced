@@ -17,17 +17,17 @@ var full_path: Array:
 
 var unit: Unit
 
-var unit_predicate_instances: Array[UnitOnCellPredicateInstance]
-var unit_endpoint_predicates: Array[UnitOnCellPredicate]
+var predicate_instances: Array[ActionPredicateInstance]
+var endpoint_predicates: Array[ActionPredicate]
 
-func _init(def: ActionDefinition, src_unit: Unit, pred_instances: Array[UnitOnCellPredicateInstance], end_pred: Array[UnitOnCellPredicate]) -> void:
+func _init(def: ActionDefinition, src_unit: Unit, pred_instances: Array[ActionPredicateInstance], end_pred: Array[ActionPredicate]) -> void:
 	definition = def
 	unit = src_unit
-	unit_predicate_instances = pred_instances
-	unit_endpoint_predicates = end_pred
+	predicate_instances = pred_instances
+	endpoint_predicates = end_pred
 
 func duplicate() -> ActionInstance:
-	var new_obj = ActionInstance.new(definition, unit, unit_predicate_instances, unit_endpoint_predicates)
+	var new_obj = ActionInstance.new(definition, unit, predicate_instances, endpoint_predicates)
 	# Note this is a shallow copy, change this if the 
 	# vectors need to be modified later
 	new_obj.path = path.duplicate()

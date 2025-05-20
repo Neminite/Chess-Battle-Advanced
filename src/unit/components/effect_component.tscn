@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cygvaqq8dp78g"]
+
+[ext_resource type="Script" uid="uid://hkenw8rr7tk1" path="res://src/unit/components/effect_component.gd" id="1_tvbqe"]
+
+[node name="EffectComponent" type="Node"]
+script = ExtResource("1_tvbqe")
+metadata/_custom_type_script = "uid://hkenw8rr7tk1"

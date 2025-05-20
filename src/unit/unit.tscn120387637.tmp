@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dk4m3q7tr7sr7"]
+[gd_scene load_steps=4 format=3 uid="uid://dk4m3q7tr7sr7"]
 
 [ext_resource type="Script" uid="uid://bshqbq2unpta8" path="res://src/unit/unit.gd" id="1_guhoh"]
 [ext_resource type="PackedScene" uid="uid://dqhb4u7mktagb" path="res://src/unit/components/action_component.tscn" id="2_guhoh"]
-[ext_resource type="PackedScene" uid="uid://cygvaqq8dp78g" path="res://src/unit/components/effect_component.tscn" id="4_5uy0h"]
 [ext_resource type="Texture2D" uid="uid://ctu8iojrixvyx" path="res://assets/units/pawn/white_pawn.png" id="4_dmgtu"]
 
 [node name="unit" type="Node2D"]
@@ -10,9 +9,6 @@ script = ExtResource("1_guhoh")
 metadata/_custom_type_script = "uid://bshqbq2unpta8"
 
 [node name="action_component" parent="." instance=ExtResource("2_guhoh")]
-unique_name_in_owner = true
-
-[node name="effect_component" parent="." instance=ExtResource("4_5uy0h")]
 unique_name_in_owner = true
 
 [node name="sprite" type="Sprite2D" parent="."]

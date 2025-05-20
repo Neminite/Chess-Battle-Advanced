@@ -85,6 +85,7 @@ func rotate_hex_around_origin(pos: Vector2i, hex_rotation: int) -> Vector2i:
 			assert(false, "hex_rotation must be in the range of 0-5")
 			return Vector2i(0, 0)
 			
+## Rotate hex by the local rotation, then offset it by the local pos
 func localize_hex(global_hex: Vector2i, local_pos: Vector2i, local_rot: int) -> Vector2i:
 	return rotate_hex_around_origin(global_hex, local_rot) + local_pos
 

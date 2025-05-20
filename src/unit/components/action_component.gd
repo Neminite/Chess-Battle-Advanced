@@ -1,11 +1,12 @@
 class_name ActionComponenet
 extends Node
 
+## Note, this component is unit-specific
 var unit: Unit
 # Note: Set doesn't exist but Dictionary comes close
 var subscribed_tiles: Dictionary[Vector2i, bool] = {}
 
-# TODO: look into caching moves here or on the unit
+
 func get_moves() -> Array[ActionInstance]:
 	Navigation.unsubscibe_from_cells(unit, subscribed_tiles)
 	subscribed_tiles.clear()
@@ -14,16 +15,31 @@ func get_moves() -> Array[ActionInstance]:
 	if (AIs):
 		return _filter_ais(AIs)
 	return []
-	
+
+## This function should be called before deleting this node
 func cleanup() -> void:
 	Navigation.unsubscibe_from_cells(unit, subscribed_tiles)
 	subscribed_tiles.clear()
+	
+func execute_action(ai: ActionInstance, turn_type: Constants.TurnTypes):
+	match turn_type:
+		Constants.TurnTypes.TURN_BASED:
+			if ai.definition.move_unit:
+				unit.move_hex(ai.end_point)
+			if ai.definition.capture_enemy:
+				var enemy: Unit = Navigation.get_enemy_on_cell(unit, ai.end_point)
+				if enemy:
+					enemy.capture(unit.team)
+		Constants.TurnTypes.COOLDOWN_BASED_INSTANT, Constants.TurnTypes.COOLDOWN_BASED_TRAVEL_TIME:
+			pass
+	unit.energy -= ai.definition.consume_energy
+	unit.action_complete.emit()
 
 func _filter_ais(ais: Array[ActionInstance]) -> Array[ActionInstance]:
 	var valid: Array[ActionInstance] = []
 	
 	for ai in ais:	
-		if not _do_predicates_pass(ai):
+		if not ai.validate_predicates():
 			continue
 		
 		if  ai.definition.tile_block_mode == ActionDefinition.BlockMode.IGNORE and \
@@ -73,25 +89,11 @@ func _filter_ais(ais: Array[ActionInstance]) -> Array[ActionInstance]:
 				printerr("Error: Unnhandled blockMode in action_component")
 	
 	return valid
-	
-## This function will evaluate all non-endpoint predicates and return true if they all pass
-func _do_predicates_pass(ai: ActionInstance) -> bool:
-	# Return true if there are NOT any predicates that do NOT pass. (If all predicates pass)
-	return not ai.predicate_instances.any(func(inst: ActionPredicateInstance): not inst.evaluate())
-	
-func _do_endpoint_predicates_pass(ai: ActionInstance) -> bool:
-	var endpoint_predicate_instances: Array[ActionPredicateInstance]
-	endpoint_predicate_instances.assign(ai.endpoint_predicates.map(
-		func(ep_pred: ActionPredicate): return ep_pred.to_endpoint_predicate_instance(ai.end_point, ai.unit)
-		))
-	# Return true if there are NOT any predicates that do NOT pass. (If all predicates pass)
-	return not endpoint_predicate_instances.any(func(inst: ActionPredicateInstance): not inst.evaluate())
 
 ## This function will validate the endpoint of the AI, generate subpaths if necessary, 
 ## and append valid AIs to the input array
 func _process_unblocked(valid_ais: Array[ActionInstance], ai: ActionInstance):
-	if Navigation.is_ai_endpoint_tile_valid(ai, subscribed_tiles) \
-			and _do_endpoint_predicates_pass(ai):
+	if Navigation.is_ai_endpoint_tile_valid(ai, subscribed_tiles) and ai.validate_endpoint_predicates():
 		valid_ais.append(ai)
 	if ai.definition.generate_subpaths and ai.path.size() > 1:
 		var ai_subpath = ai.duplicate()

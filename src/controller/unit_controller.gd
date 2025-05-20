@@ -1,11 +1,7 @@
 extends Node2D
 
-enum TurnTypes {
-	TURN_BASED,
-	COOLDOWN_BASED_INSTANT,
-	COOLDOWN_BASED_TRAVEL_TIME
-}
-@export var turn_type: TurnTypes = TurnTypes.TURN_BASED
+
+@export var turn_type: Constants.TurnTypes = Constants.TurnTypes.TURN_BASED
 
 var units: Array[Unit]
 var player_units: Array[Unit] # Sub-array of above
@@ -71,24 +67,6 @@ func deregister_unit(unit: Unit) -> void:
 	units.erase(unit)
 	player_units.erase(unit)
 	
-func execute_action(ai: ActionInstance) -> void:
-	var unit: Unit = ai.unit
-	match turn_type:
-		TurnTypes.TURN_BASED:
-			if turn_type == TurnTypes.TURN_BASED and current_team != unit.team:
-				assert(false, "Error: move attempted on opponent's turn")
-			if ai.definition.move_unit:
-				unit.move_hex(ai.end_point)
-			if ai.definition.capture_enemy:
-				var enemy: Unit = Navigation.get_enemy_on_cell(unit, ai.end_point)
-				if enemy:
-					enemy.capture(current_team)
-			_advance_turn()
-		TurnTypes.COOLDOWN_BASED_INSTANT, TurnTypes.COOLDOWN_BASED_TRAVEL_TIME:
-			pass
-	selected_unit = null
-	
-	
 func tmp_display_moves(unit: Unit):
 	tmp_points_to_draw.clear()
 	if unit:
@@ -119,19 +97,24 @@ func _process_left_click(pos: Vector2) -> void:
 	queue_redraw()
 	if clicked_unit:
 		match turn_type:
-			TurnTypes.TURN_BASED:
+			Constants.TurnTypes.TURN_BASED:
 				if current_team == clicked_unit.team:
 					selected_unit = clicked_unit
-			TurnTypes.COOLDOWN_BASED_INSTANT, TurnTypes.COOLDOWN_BASED_TRAVEL_TIME:
+			Constants.TurnTypes.COOLDOWN_BASED_INSTANT, Constants.TurnTypes.COOLDOWN_BASED_TRAVEL_TIME:
 				if clicked_unit.cooldown <= 0:
 					selected_unit = clicked_unit
 	elif selected_unit:
 		var clicked_tile = Navigation.world_to_hex(pos)
+		## TODO: Look into moving this code elsewhere
 		var ai_index = selected_unit.available_actions.find_custom(
 			func(ai: ActionInstance): return ai.end_point == clicked_tile
 		)
 		if ai_index >= 0:
-			execute_action(selected_unit.available_actions[ai_index])
+			selected_unit.execute_action(selected_unit.available_actions[ai_index], turn_type)
+			# Deselect unit
+			selected_unit = null
+			if turn_type == Constants.TurnTypes.TURN_BASED:
+				_advance_turn()
 
 
 func _unhandled_input(event: InputEvent) -> void:

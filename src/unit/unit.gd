@@ -3,6 +3,7 @@ extends Node2D
 
 signal movement_complete
 signal unit_captured
+signal action_complete
 
 @export var def: UnitDefinition
 @export var team: int
@@ -13,6 +14,7 @@ signal unit_captured
 @export var move_speed_per_cell: float = 0.15
 
 @onready var action_componet: ActionComponenet = %action_component
+@onready var effect_componet: EffectComponenet = %effect_component
 @onready var sprite: Sprite2D = %sprite
 
 # TODO: Look into best way to set this up, and best unit to calculate in. Ticks? Ms?
@@ -38,6 +40,9 @@ func get_rect() -> Rect2:
 	var global_size = local_rect.size * scale
 	return Rect2(global_pos, global_size)
 	
+func execute_action(ai: ActionInstance, turn_type: Constants.TurnTypes):
+	action_componet.execute_action(ai, turn_type)
+	
 func move_hex(hex_pos: Vector2i) -> void:
 	var old_cell = cell
 	global_position = Navigation.hex_to_world(hex_pos)
@@ -58,6 +63,18 @@ func capture(capturing_team: int) -> void:
 	Navigation.update_tiles([cell])
 	sprite.hide()
 	queue_free()
+	
+func apply_effect(effect: EffectBase):
+	return effect_componet.apply_effect(effect)
+	
+func remove_effect(effect: EffectBase):
+	return effect_componet.remove_effect(effect)
+	
+func has_effect(effect: EffectBase) -> bool:
+	return effect_componet.has_effect(effect)
+	
+func has_effect_id(effect_id: String) -> bool:
+	return effect_componet.has_effect_id(effect_id)
 
 # TODO: Decide how moves will work. Real time or turn based? If real time, are units capturable while moving? Blockable?
 # Current thoughts, real time, but instant moves? In this case click unit click destination best control path
@@ -89,6 +106,8 @@ func _ready() -> void:
 
 func _init_def() -> void:
 	sprite.texture = def.sprite
+	range = def.range
+	energy = def.starting_energy
 	#sprite.sprite_frames = def.frames
 	#sprite.play()
 	

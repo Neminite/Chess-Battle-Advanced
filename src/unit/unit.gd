@@ -10,7 +10,7 @@ signal action_complete
 @export var energy: int
 ## Defines the rotation , 0 = Not rotated, 3 = 180deg
 @export var move_rotation: int = 0
-@export var range: int = 1
+@export var base_range: int = 1
 @export var move_speed_per_cell: float = 0.15
 
 @onready var action_componet: ActionComponenet = %action_component
@@ -21,13 +21,20 @@ signal action_complete
 var cooldown: int = 0
 var is_active := true
 var available_actions: Array[ActionInstance] = []
-var _skip_move_update = false
+var _skip_move_update := false
 
 var cell: Vector2i:
 	get:
 		return Navigation.world_to_hex(global_position)
+		
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	action_componet.unit = self
+	effect_componet.unit = self
+	_init_def()
+	_snap_pos.call_deferred()
 
-func is_unit_ally(unit: Unit):
+func is_unit_ally(unit: Unit) -> bool:
 	return unit.team == team
 	
 func update_move_paths() -> void:
@@ -35,16 +42,16 @@ func update_move_paths() -> void:
 		available_actions = action_componet.get_moves()
 	
 func get_rect() -> Rect2:
-	var local_rect = sprite.get_rect()
-	var global_pos = to_global(local_rect.position)
-	var global_size = local_rect.size * scale
+	var local_rect := sprite.get_rect()
+	var global_pos := to_global(local_rect.position)
+	var global_size := local_rect.size * scale
 	return Rect2(global_pos, global_size)
 	
-func execute_action(ai: ActionInstance, turn_type: Constants.TurnTypes):
+func execute_action(ai: ActionInstance, turn_type: Constants.TurnType) -> void:
 	action_componet.execute_action(ai, turn_type)
 	
 func move_hex(hex_pos: Vector2i) -> void:
-	var old_cell = cell
+	var old_cell := cell
 	global_position = Navigation.hex_to_world(hex_pos)
 	Navigation.remove_unit_from_cell(self, old_cell)
 	Navigation.add_unit_to_cell(self, cell)
@@ -54,6 +61,7 @@ func move_hex(hex_pos: Vector2i) -> void:
 	_skip_move_update = false
 	update_move_paths()
 	
+## If reason for capture is not a unit, team will be -1
 func capture(capturing_team: int) -> void:
 	is_active = false
 	print("Unit captured by team #", capturing_team)
@@ -64,16 +72,16 @@ func capture(capturing_team: int) -> void:
 	sprite.hide()
 	queue_free()
 	
-func apply_effect(effect: EffectBase):
-	return effect_componet.apply_effect(effect)
+func apply_effect(effect: EffectBase, applier: Unit = null) -> void:
+	effect_componet.apply_effect(effect, applier)
 	
-func remove_effect(effect: EffectBase):
-	return effect_componet.remove_effect(effect)
+func remove_effect(effect: EffectBase) -> void:
+	effect_componet.remove_effect(effect)
 	
 func has_effect(effect: EffectBase) -> bool:
 	return effect_componet.has_effect(effect)
 	
-func has_effect_id(effect_id: String) -> bool:
+func has_effect_id(effect_id: Constants.EffectId) -> bool:
 	return effect_componet.has_effect_id(effect_id)
 
 # TODO: Decide how moves will work. Real time or turn based? If real time, are units capturable while moving? Blockable?
@@ -96,17 +104,11 @@ func has_effect_id(effect_id: String) -> bool:
 			#sprite.flip_h = false
 	#await move_tween.finished
 	#movement_complete.emit()
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	action_componet.unit = self
-	_init_def()
-	_snap_pos.call_deferred()
 	
 
 func _init_def() -> void:
 	sprite.texture = def.sprite
-	range = def.range
+	base_range = def.base_range
 	energy = def.starting_energy
 	#sprite.sprite_frames = def.frames
 	#sprite.play()

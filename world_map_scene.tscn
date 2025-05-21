@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://cupbevby1fftg" path="res://tile_map_layer.gd" id="4_drth0"]
 [ext_resource type="PackedScene" uid="uid://c2edwlifexa22" path="res://src/controller/unit_controller.tscn" id="5_eatxl"]
 [ext_resource type="PackedScene" uid="uid://dk4m3q7tr7sr7" path="res://src/unit/unit.tscn" id="6_v6cg1"]
-[ext_resource type="Resource" uid="uid://cch7ys3ut1tus" path="res://src/unit/definitions/pawn.tres" id="7_lgrju"]
+[ext_resource type="Resource" uid="uid://cch7ys3ut1tus" path="res://assets/units/pawn/pawn.tres" id="7_lgrju"]
 [ext_resource type="Script" uid="uid://bdkl52svkrm01" path="res://src/camera.gd" id="8_v6cg1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_847lo"]
@@ -56,7 +56,7 @@ position = Vector2(211, -71)
 def = ExtResource("7_lgrju")
 
 [node name="unit3" parent="UnitController" instance=ExtResource("6_v6cg1")]
-position = Vector2(137, -72)
+position = Vector2(136, -113)
 def = ExtResource("7_lgrju")
 
 [node name="enemy1" parent="UnitController" instance=ExtResource("6_v6cg1")]
@@ -64,6 +64,14 @@ modulate = Color(0.205652, 0.178439, 0.203518, 1)
 position = Vector2(160, -154)
 def = ExtResource("7_lgrju")
 team = 1
+move_rotation = 3
+
+[node name="enemy2" parent="UnitController" instance=ExtResource("6_v6cg1")]
+modulate = Color(0.205652, 0.178439, 0.203518, 1)
+position = Vector2(88, -109)
+def = ExtResource("7_lgrju")
+team = 1
+move_rotation = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(208, -121)

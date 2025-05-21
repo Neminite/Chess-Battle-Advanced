@@ -1,5 +1,5 @@
 class_name UnitPredicate
 extends Resource
 
-func test(unit_to_test: Unit, testing_unit: Unit = null) -> bool:
+func test(_unit_to_test: Unit, _testing_unit: Unit = null) -> bool:
 	return false

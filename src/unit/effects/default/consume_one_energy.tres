@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ReduceEnergyEffect" load_steps=2 format=3 uid="uid://cd54qvhdkhyyh"]
+
+[ext_resource type="Script" uid="uid://bxichqrmwgm2l" path="res://src/unit/effects/reduce_energy.gd" id="1_rhw2r"]
+
+[resource]
+script = ExtResource("1_rhw2r")
+amount = 1
+metadata/_custom_type_script = "uid://bxichqrmwgm2l"

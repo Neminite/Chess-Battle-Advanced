@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TeamUnitPredicate" load_steps=2 format=3 uid="uid://c4rvobf4crpux"]
+
+[ext_resource type="Script" uid="uid://dini2nt0aahvt" path="res://src/unit/predicates/team_unit_predicate.gd" id="1_h13rj"]
+
+[resource]
+script = ExtResource("1_h13rj")
+team = -1
+require_ally = false
+require_enemy = true
+metadata/_custom_type_script = "uid://dini2nt0aahvt"

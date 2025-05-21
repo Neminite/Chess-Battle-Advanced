@@ -1,6 +1,6 @@
 extends TileMapLayer
 
-@onready var unit_controller = %UnitController
+@onready var unit_controller := %UnitController
 
 func _ready() -> void:
 	Navigation.init_level(self, unit_controller.get_active_units)

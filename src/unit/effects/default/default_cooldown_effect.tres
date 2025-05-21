@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SetCooldownEffect" load_steps=2 format=3 uid="uid://drdhk5phb8iif"]
+
+[ext_resource type="Script" uid="uid://ypyn56olwr0y" path="res://src/unit/effects/set_cooldown.gd" id="1_vogut"]
+
+[resource]
+script = ExtResource("1_vogut")
+amount = 0
+metadata/_custom_type_script = "uid://ypyn56olwr0y"

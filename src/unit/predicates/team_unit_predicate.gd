@@ -12,7 +12,7 @@ func test(unit_to_test: Unit, testing_unit: Unit = null) -> bool:
 	if team != -1:
 		return unit_to_test.team == team
 	assert(testing_unit != null, "testing_unit cannot be null when checking ally status")
-	var is_ally = testing_unit.is_unit_ally(unit_to_test)
+	var is_ally: bool = testing_unit.is_unit_ally(unit_to_test)
 	if require_ally:
 		return is_ally
 	if require_enemy:

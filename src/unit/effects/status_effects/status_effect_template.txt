@@ -1,0 +1,32 @@
+class_name NameEffect
+extends EffectBase
+
+## Description
+
+## Required
+func _init() -> void:
+	self.duration_type = EffectDurationType.ENEMY_TURNS
+
+## Required
+func get_id() -> Constants.EffectId:
+	return Constants.EffectId.UNGUARDED
+
+## Optional
+func compound_effect(compounding_effect: EffectBase) -> void:
+	self.duration = max(self.duration, compounding_effect.duration)
+
+## Optional
+func on_apply(this_unit: Unit, applier: Unit = null) -> void:
+	super(this_unit, applier) # Required
+
+## Optional
+func update() -> void:
+	super() # Optional, by default reduces duration
+
+## Optional
+func on_remove() -> void:
+	super() # Required
+
+## Optional, include custom duration reduction logic here.
+func reduce_duration(reduce_amount: int = 1) -> void:
+	pass

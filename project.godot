@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 Navigation="*res://src/global/navigation.gd"
 Constants="*res://src/global/constants.gd"
+EventBus="*res://src/global/event_bus.gd"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=1
 
 [display]
 

@@ -154,20 +154,21 @@ func get_ai_block_point_and_reason(ai: ActionInstance, subscribed_tiles := {}) -
 
 func is_ai_endpoint_tile_valid(ai: ActionInstance, subscribed_tiles := {}) -> bool:
 	var cell := ai.end_point
-	var cell_properties: Dictionary = hexmap.get(cell)
-	# Update cell subscriptions, dictionary is pass by reference
-	_subscribe_unit_to_cell(ai.unit, cell, cell_properties, subscribed_tiles)
+	var cell_properties: Dictionary = hexmap.get(cell, {})
 	
 	if not cell_properties:
 		# Cell not in cell map
 		return false
+	
+	# Update cell subscriptions, dictionary is pass by reference
+	_subscribe_unit_to_cell(ai.unit, cell, cell_properties, subscribed_tiles)
 	var cell_type: Constants.TileType = cell_properties[HexProperties.TERRAIN]
 	if cell_type in ai.definition.invalid_end_tile_types:
 		return false
 	return true
 	
 func get_units_on_cell(cell: Vector2i) -> Array[Unit]:
-	var cell_properties: Dictionary = hexmap.get(cell)
+	var cell_properties: Dictionary = hexmap.get(cell, {})
 	if not cell_properties:
 		# Cell not in cell map
 		return []
@@ -183,7 +184,10 @@ func get_enemy_on_cell(unit: Unit, cell: Vector2i) -> Unit:
 	return null
 
 func subscribe_unit_to_cell(unit: Unit, cell: Vector2i) -> void:
-	var cell_properties: Dictionary = hexmap.get(cell)
+	var cell_properties: Dictionary = hexmap.get(cell, {})
+	if not cell_properties:
+		print("WARN: Tried to subscribe ", unit, " to out-of-bounds cell")
+		return
 	_subscribe_unit_to_cell(unit, cell, cell_properties, unit.action_componet.subscribed_tiles)
 	return
 

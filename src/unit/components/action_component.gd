@@ -83,13 +83,13 @@ func _filter_ais(ais: Array[ActionInstance]) -> Array[ActionInstance]:
 			ActionDefinition.BlockMode.TRUNCATE_BEFORE:
 				ai.end_point = block
 				var idx := ai.full_path.find(ai.end_point)
-				ai.path = ai.full_path.slice(0, idx)
+				ai.path.assign(ai.full_path.slice(0, idx))
 				if ai.path.size() > 0:
 					_process_unblocked(valid, ai)
 				continue
 			ActionDefinition.BlockMode.TRUNCATE_ON:
 				var idx := ai.full_path.find(block)
-				ai.path = ai.full_path.slice(0, idx + 1)
+				ai.path.assign(ai.full_path.slice(0, idx + 1))
 				ai.end_point = ai.path[ai.path.size() - 1]
 				_process_unblocked(valid, ai)
 			ActionDefinition.BlockMode.CANCEL:

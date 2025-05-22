@@ -51,6 +51,10 @@ func _ready() -> void:
 	for child in get_children():
 		if child is Unit:
 			register_unit(child)
+		else:
+			for double_child in child.get_children():
+				if double_child is Unit:
+					register_unit(double_child)
 	queue_redraw.call_deferred()
 
 func get_active_units() -> Array[Unit]:

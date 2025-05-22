@@ -1,0 +1,155 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=16 format=3 uid="uid://cubtrviqe6cdy"]
+
+[ext_resource type="Script" uid="uid://baknyc7y2v3o2" path="res://src/unit/actions/action_definition.gd" id="1_4jw2b"]
+[ext_resource type="Script" uid="uid://qgd2a67c2ntf" path="res://src/unit/actions/predicates/action_predicate.gd" id="2_w8a5y"]
+[ext_resource type="Script" uid="uid://mg2g6c5ypk58" path="res://src/unit/effects/effect_base.gd" id="3_hov6b"]
+[ext_resource type="Resource" uid="uid://fm5req37kbf4" path="res://src/unit/effects/default/capture_effect.tres" id="4_ie7um"]
+[ext_resource type="Script" uid="uid://ci0pajik25da5" path="res://src/unit/predicates/unit_predicate.gd" id="5_pvysw"]
+[ext_resource type="Resource" uid="uid://c4rvobf4crpux" path="res://src/unit/predicates/default/is_enemy_predicate.tres" id="6_ed0gw"]
+[ext_resource type="Resource" uid="uid://drdhk5phb8iif" path="res://src/unit/effects/default/default_cooldown_effect.tres" id="7_hut0y"]
+[ext_resource type="Script" uid="uid://bccsvcfs76tll" path="res://src/unit/unit_definition.gd" id="8_gugyf"]
+[ext_resource type="Texture2D" uid="uid://coicgkng4j3v8" path="res://assets/units/bishop/white_bishop.png" id="9_njbt5"]
+
+[sub_resource type="Resource" id="Resource_mduie"]
+script = ExtResource("1_4jw2b")
+name = "dLeft"
+path = Array[Vector2i]([Vector2i(-2, 1)])
+end_point = Vector2i(2147483647, 2147483647)
+tile_block_mode = 0
+ally_unit_block_mode = 0
+enemy_unit_block_mode = 3
+blocking_tile_types = Array[int]([1, 2])
+blocking_unit_category = Array[int]([0])
+invalid_end_tile_types = Array[int]([1, 2])
+endpoint_predicates = Array[ExtResource("2_w8a5y")]([])
+predicates = Array[ExtResource("2_w8a5y")]([])
+affected_by_range = true
+generate_subpaths = true
+move_unit = true
+unit_effects = Array[ExtResource("3_hov6b")]([ExtResource("7_hut0y")])
+target_tiles = Array[Vector2i]([Vector2i(0, 0)])
+target_predicates = Array[ExtResource("5_pvysw")]([ExtResource("6_ed0gw")])
+target_effects = Array[ExtResource("3_hov6b")]([ExtResource("4_ie7um")])
+metadata/_custom_type_script = "uid://baknyc7y2v3o2"
+
+[sub_resource type="Resource" id="Resource_c12nj"]
+script = ExtResource("1_4jw2b")
+name = "dRight"
+path = Array[Vector2i]([Vector2i(2, -1)])
+end_point = Vector2i(2147483647, 2147483647)
+tile_block_mode = 0
+ally_unit_block_mode = 0
+enemy_unit_block_mode = 3
+blocking_tile_types = Array[int]([1, 2])
+blocking_unit_category = Array[int]([0])
+invalid_end_tile_types = Array[int]([1, 2])
+endpoint_predicates = Array[ExtResource("2_w8a5y")]([])
+predicates = Array[ExtResource("2_w8a5y")]([])
+affected_by_range = true
+generate_subpaths = true
+move_unit = true
+unit_effects = Array[ExtResource("3_hov6b")]([ExtResource("7_hut0y")])
+target_tiles = Array[Vector2i]([Vector2i(0, 0)])
+target_predicates = Array[ExtResource("5_pvysw")]([ExtResource("6_ed0gw")])
+target_effects = Array[ExtResource("3_hov6b")]([ExtResource("4_ie7um")])
+metadata/_custom_type_script = "uid://baknyc7y2v3o2"
+
+[sub_resource type="Resource" id="Resource_p5rq1"]
+script = ExtResource("1_4jw2b")
+name = "dUp Left"
+path = Array[Vector2i]([Vector2i(-1, -1)])
+end_point = Vector2i(2147483647, 2147483647)
+tile_block_mode = 0
+ally_unit_block_mode = 0
+enemy_unit_block_mode = 3
+blocking_tile_types = Array[int]([1, 2])
+blocking_unit_category = Array[int]([0])
+invalid_end_tile_types = Array[int]([1, 2])
+endpoint_predicates = Array[ExtResource("2_w8a5y")]([])
+predicates = Array[ExtResource("2_w8a5y")]([])
+affected_by_range = true
+generate_subpaths = true
+move_unit = true
+unit_effects = Array[ExtResource("3_hov6b")]([ExtResource("7_hut0y")])
+target_tiles = Array[Vector2i]([Vector2i(0, 0)])
+target_predicates = Array[ExtResource("5_pvysw")]([ExtResource("6_ed0gw")])
+target_effects = Array[ExtResource("3_hov6b")]([ExtResource("4_ie7um")])
+metadata/_custom_type_script = "uid://baknyc7y2v3o2"
+
+[sub_resource type="Resource" id="Resource_8hg7g"]
+script = ExtResource("1_4jw2b")
+name = "DUp Right"
+path = Array[Vector2i]([Vector2i(1, -2)])
+end_point = Vector2i(2147483647, 2147483647)
+tile_block_mode = 0
+ally_unit_block_mode = 0
+enemy_unit_block_mode = 3
+blocking_tile_types = Array[int]([1, 2])
+blocking_unit_category = Array[int]([0])
+invalid_end_tile_types = Array[int]([1, 2])
+endpoint_predicates = Array[ExtResource("2_w8a5y")]([])
+predicates = Array[ExtResource("2_w8a5y")]([])
+affected_by_range = true
+generate_subpaths = true
+move_unit = true
+unit_effects = Array[ExtResource("3_hov6b")]([ExtResource("7_hut0y")])
+target_tiles = Array[Vector2i]([Vector2i(0, 0)])
+target_predicates = Array[ExtResource("5_pvysw")]([ExtResource("6_ed0gw")])
+target_effects = Array[ExtResource("3_hov6b")]([ExtResource("4_ie7um")])
+metadata/_custom_type_script = "uid://baknyc7y2v3o2"
+
+[sub_resource type="Resource" id="Resource_tywyg"]
+script = ExtResource("1_4jw2b")
+name = "dDown Left"
+path = Array[Vector2i]([Vector2i(-1, 2)])
+end_point = Vector2i(2147483647, 2147483647)
+tile_block_mode = 0
+ally_unit_block_mode = 0
+enemy_unit_block_mode = 3
+blocking_tile_types = Array[int]([1, 2])
+blocking_unit_category = Array[int]([0])
+invalid_end_tile_types = Array[int]([1, 2])
+endpoint_predicates = Array[ExtResource("2_w8a5y")]([])
+predicates = Array[ExtResource("2_w8a5y")]([])
+affected_by_range = true
+generate_subpaths = true
+move_unit = true
+unit_effects = Array[ExtResource("3_hov6b")]([ExtResource("7_hut0y")])
+target_tiles = Array[Vector2i]([Vector2i(0, 0)])
+target_predicates = Array[ExtResource("5_pvysw")]([ExtResource("6_ed0gw")])
+target_effects = Array[ExtResource("3_hov6b")]([ExtResource("4_ie7um")])
+metadata/_custom_type_script = "uid://baknyc7y2v3o2"
+
+[sub_resource type="Resource" id="Resource_igx27"]
+script = ExtResource("1_4jw2b")
+name = "dDown Right"
+path = Array[Vector2i]([Vector2i(1, 1)])
+end_point = Vector2i(2147483647, 2147483647)
+tile_block_mode = 0
+ally_unit_block_mode = 0
+enemy_unit_block_mode = 3
+blocking_tile_types = Array[int]([1, 2])
+blocking_unit_category = Array[int]([0])
+invalid_end_tile_types = Array[int]([1, 2])
+endpoint_predicates = Array[ExtResource("2_w8a5y")]([])
+predicates = Array[ExtResource("2_w8a5y")]([])
+affected_by_range = true
+generate_subpaths = true
+move_unit = true
+unit_effects = Array[ExtResource("3_hov6b")]([ExtResource("7_hut0y")])
+target_tiles = Array[Vector2i]([Vector2i(0, 0)])
+target_predicates = Array[ExtResource("5_pvysw")]([ExtResource("6_ed0gw")])
+target_effects = Array[ExtResource("3_hov6b")]([ExtResource("4_ie7um")])
+metadata/_custom_type_script = "uid://baknyc7y2v3o2"
+
+[resource]
+script = ExtResource("8_gugyf")
+category = 0
+type = 2
+name = "Bishop"
+sprite = ExtResource("9_njbt5")
+type_components = Array[PackedScene]([])
+move_definitions = Array[ExtResource("1_4jw2b")]([SubResource("Resource_mduie"), SubResource("Resource_c12nj"), SubResource("Resource_p5rq1"), SubResource("Resource_8hg7g"), SubResource("Resource_tywyg"), SubResource("Resource_igx27")])
+base_range = 11
+starting_energy = 1
+metadata/_custom_type_script = "uid://bccsvcfs76tll"

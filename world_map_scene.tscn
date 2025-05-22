@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://i2l8ypgws7qr"]
+[gd_scene load_steps=18 format=4 uid="uid://i2l8ypgws7qr"]
 
 [ext_resource type="Texture2D" uid="uid://b8mrwrnmxuy72" path="res://assets/tiles/dark_hex_1.png" id="1_faxpb"]
 [ext_resource type="Texture2D" uid="uid://b86pdwyi3tqod" path="res://assets/tiles/dark_hex_2.png" id="2_drth0"]
@@ -7,7 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://c2edwlifexa22" path="res://src/controller/unit_controller.tscn" id="5_eatxl"]
 [ext_resource type="PackedScene" uid="uid://dk4m3q7tr7sr7" path="res://src/unit/unit.tscn" id="6_v6cg1"]
 [ext_resource type="Resource" uid="uid://cch7ys3ut1tus" path="res://assets/units/pawn/pawn.tres" id="7_lgrju"]
+[ext_resource type="Resource" uid="uid://bv507k15lx0sd" path="res://assets/units/rook/rook.tres" id="8_lgrju"]
 [ext_resource type="Script" uid="uid://bdkl52svkrm01" path="res://src/camera.gd" id="8_v6cg1"]
+[ext_resource type="Resource" uid="uid://ca6kbc3x70oo1" path="res://assets/units/knight/knight.tres" id="9_wcq6u"]
+[ext_resource type="Resource" uid="uid://cubtrviqe6cdy" path="res://assets/units/bishop/bishop.tres" id="10_uaria"]
+[ext_resource type="Resource" uid="uid://bawnqsn1058lq" path="res://assets/units/king/king.tres" id="11_o5tst"]
+[ext_resource type="Resource" uid="uid://omxh5i3dvvox" path="res://assets/units/queen/queen.tres" id="12_mkuxx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_847lo"]
 texture = ExtResource("1_faxpb")
@@ -40,24 +45,12 @@ sources/2 = SubResource("TileSetAtlasSource_v6cg1")
 [node name="Level" type="Node"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAABAPj/AgAAAAAAAAAAAPr/AgAAAAAAAAABAPn/AQAAAAAAAAAAAPn/AAAAAAAAAAAAAPz/AAAAAAAAAAABAPr/AAAAAAAAAAACAPn/AAAAAAAAAAABAPv/AgAAAAAAAAACAPr/AgAAAAAAAAADAPj/AgAAAAAAAAAAAPv/AQAAAAAAAAACAPv/AQAAAAAAAAADAPn/AQAAAAAAAAACAPj/AQAAAAAAAAAAAPj/AQAAAAAAAAAEAPv/AQAAAAAAAAAGAPv/AQAAAAAAAAAIAPv/AQAAAAAAAAAKAPv/AQAAAAAAAAAMAPv/AQAAAAAAAAAOAPv/AQAAAAAAAAAFAPn/AQAAAAAAAAAHAPn/AQAAAAAAAAAJAPn/AQAAAAAAAAALAPn/AQAAAAAAAAANAPn/AQAAAAAAAAAPAPn/AQAAAAAAAAAEAPj/AQAAAAAAAAAGAPj/AQAAAAAAAAAIAPj/AQAAAAAAAAAKAPj/AQAAAAAAAAAMAPj/AQAAAAAAAAAOAPj/AQAAAAAAAAAFAPz/AQAAAAAAAAAHAPz/AQAAAAAAAAAJAPz/AQAAAAAAAAALAPz/AQAAAAAAAAANAPz/AQAAAAAAAAAPAPz/AQAAAAAAAAADAPz/AQAAAAAAAAABAPz/AQAAAAAAAAACAP7/AQAAAAAAAAAEAP7/AQAAAAAAAAAGAP7/AQAAAAAAAAAIAP7/AQAAAAAAAAAKAP7/AQAAAAAAAAAMAP7/AQAAAAAAAAAOAP7/AQAAAAAAAAAQAP7/AQAAAAAAAAACAPz/AAAAAAAAAAAEAPz/AAAAAAAAAAAGAPz/AAAAAAAAAAAIAPz/AAAAAAAAAAAKAPz/AAAAAAAAAAAMAPz/AAAAAAAAAAAOAPz/AAAAAAAAAAAPAP3/AAAAAAAAAAANAP3/AAAAAAAAAAALAP3/AAAAAAAAAAAJAP3/AAAAAAAAAAAHAP3/AAAAAAAAAAAFAP3/AAAAAAAAAAADAP3/AAAAAAAAAAABAP3/AAAAAAAAAAADAPr/AAAAAAAAAAAFAPr/AAAAAAAAAAAHAPr/AAAAAAAAAAAJAPr/AAAAAAAAAAALAPr/AAAAAAAAAAANAPr/AAAAAAAAAAAPAPr/AAAAAAAAAAAOAPn/AAAAAAAAAAAMAPn/AAAAAAAAAAAKAPn/AAAAAAAAAAAIAPn/AAAAAAAAAAAGAPn/AAAAAAAAAAAEAPn/AAAAAAAAAAACAP3/AgAAAAAAAAAEAP3/AgAAAAAAAAAGAP3/AgAAAAAAAAAIAP3/AgAAAAAAAAAKAP3/AgAAAAAAAAAMAP3/AgAAAAAAAAAOAP3/AgAAAAAAAAAQAP3/AgAAAAAAAAAPAPv/AgAAAAAAAAANAPv/AgAAAAAAAAALAPv/AgAAAAAAAAAJAPv/AgAAAAAAAAAHAPv/AgAAAAAAAAAFAPv/AgAAAAAAAAADAPv/AgAAAAAAAAAEAPr/AgAAAAAAAAAFAPj/AgAAAAAAAAAHAPj/AgAAAAAAAAAGAPr/AgAAAAAAAAAIAPr/AgAAAAAAAAAJAPj/AgAAAAAAAAALAPj/AgAAAAAAAAAKAPr/AgAAAAAAAAAMAPr/AgAAAAAAAAANAPj/AgAAAAAAAAAOAPr/AgAAAAAAAAAPAPj/AgAAAAAAAAAQAPr/AgAAAAAAAAAAAP3/AgAAAAAAAAAQAPn/AAAAAAAAAAAQAPz/AAAAAAAAAAAQAPv/AQAAAAAAAAAQAPj/AQAAAAAAAAAAAP7/AQAAAAAAAAAAAP//AAAAAAAAAAABAP7/AgAAAAAAAAABAP//AQAAAAAAAAABAAAAAAAAAAAAAAACAP//AAAAAAAAAAACAAAAAgAAAAAAAAACAAEAAQAAAAAAAAADAP7/AgAAAAAAAAADAP//AQAAAAAAAAADAAAAAAAAAAAAAAAEAP//AAAAAAAAAAAEAAAAAgAAAAAAAAAEAAEAAQAAAAAAAAAFAP7/AgAAAAAAAAAFAP//AQAAAAAAAAAFAAAAAAAAAAAAAAAGAP//AAAAAAAAAAAGAAAAAgAAAAAAAAAGAAEAAQAAAAAAAAAHAP7/AgAAAAAAAAAHAP//AQAAAAAAAAAHAAAAAAAAAAAAAAAIAP//AAAAAAAAAAAIAAAAAgAAAAAAAAAIAAEAAQAAAAAAAAAJAP7/AgAAAAAAAAAJAP//AQAAAAAAAAAJAAAAAAAAAAAAAAAKAP//AAAAAAAAAAAKAAAAAgAAAAAAAAAKAAEAAQAAAAAAAAALAP7/AgAAAAAAAAALAP//AQAAAAAAAAALAAAAAAAAAAAAAAAMAP//AAAAAAAAAAAMAAAAAgAAAAAAAAAMAAEAAQAAAAAAAAANAP7/AgAAAAAAAAANAP//AQAAAAAAAAANAAAAAAAAAAAAAAAOAP//AAAAAAAAAAAOAAAAAgAAAAAAAAAOAAEAAQAAAAAAAAAPAP7/AgAAAAAAAAAPAP//AQAAAAAAAAAPAAAAAAAAAAAAAAAQAP//AAAAAAAAAAAQAAAAAgAAAAAAAAAQAAEAAQAAAAAAAAD6//7/AQAAAAAAAAD6////AAAAAAAAAAD7//7/AgAAAAAAAAD7////AQAAAAAAAAD8//7/AQAAAAAAAAD8////AAAAAAAAAAD9//7/AgAAAAAAAAD9////AQAAAAAAAAD+//7/AQAAAAAAAAD+////AAAAAAAAAAD///7/AgAAAAAAAAD/////AQAAAAAAAAD6//v/AQAAAAAAAAD6//z/AAAAAAAAAAD6//3/AgAAAAAAAAD7//v/AgAAAAAAAAD7//z/AQAAAAAAAAD7//3/AAAAAAAAAAD8//v/AQAAAAAAAAD8//z/AAAAAAAAAAD8//3/AgAAAAAAAAD9//v/AgAAAAAAAAD9//z/AQAAAAAAAAD9//3/AAAAAAAAAAD+//v/AQAAAAAAAAD+//z/AAAAAAAAAAD+//3/AgAAAAAAAAD///v/AgAAAAAAAAD///z/AQAAAAAAAAD///3/AAAAAAAAAAD6//j/AQAAAAAAAAD6//n/AAAAAAAAAAD6//r/AgAAAAAAAAD7//j/AgAAAAAAAAD7//n/AQAAAAAAAAD7//r/AAAAAAAAAAD8//j/AQAAAAAAAAD8//n/AAAAAAAAAAD8//r/AgAAAAAAAAD9//j/AgAAAAAAAAD9//n/AQAAAAAAAAD9//r/AAAAAAAAAAD+//j/AQAAAAAAAAD+//n/AAAAAAAAAAD+//r/AgAAAAAAAAD///j/AgAAAAAAAAD///n/AQAAAAAAAAD///r/AAAAAAAAAAD6/wAAAgAAAAAAAAD6/wEAAQAAAAAAAAD7/wAAAAAAAAAAAAD8/wAAAgAAAAAAAAD8/wEAAQAAAAAAAAD9/wAAAAAAAAAAAAD+/wAAAgAAAAAAAAD+/wEAAQAAAAAAAAD//wAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAEAAQAAAAAAAAD7/wEAAgAAAAAAAAD7/wIAAQAAAAAAAAD8/wIAAAAAAAAAAAD9/wEAAgAAAAAAAAD9/wIAAQAAAAAAAAD+/wIAAAAAAAAAAAD//wEAAgAAAAAAAAD//wIAAQAAAAAAAAAAAAIAAAAAAAAAAAABAAEAAgAAAAAAAAABAAIAAQAAAAAAAAACAAIAAAAAAAAAAAADAAEAAgAAAAAAAAADAAIAAQAAAAAAAAAEAAIAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAABAP7/AAAAAAAAAAACAP//AQAAAAAAAAADAP//AgAAAAAAAAAEAAAAAAAAAAAAAAAFAAAAAQAAAAAAAAAGAAEAAgAAAAAAAAABAPv/AAAAAAAAAAACAPz/AQAAAAAAAAADAPz/AgAAAAAAAAAEAP3/AAAAAAAAAAAFAP3/AQAAAAAAAAAGAP7/AgAAAAAAAAADAPv/AAAAAAAAAAAEAPz/AQAAAAAAAAAFAPz/AgAAAAAAAAAGAP3/AAAAAAAAAAAHAP3/AQAAAAAAAAAIAP7/AgAAAAAAAAAGAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAADAP7/AAAAAAAAAAAFAP7/AAAAAAAAAAAHAP7/AAAAAAAAAAAJAP7/AAAAAAAAAAALAP7/AAAAAAAAAAALAPv/AAAAAAAAAAAJAPj/AAAAAAAAAAAGAPf/AAAAAAAAAAADAPj/AAAAAAAAAAAFAPv/AAAAAAAAAAAHAPv/AAAAAAAAAAAJAPv/AAAAAAAAAAAFAPj/AAAAAAAAAAAHAPj/AAAAAAAAAAAEAPr/AAAAAAAAAAAGAPr/AAAAAAAAAAAIAPr/AAAAAAAAAAAKAPr/AAAAAAAAAAACAPr/AAAAAAAAAAACAP3/AAAAAAAAAAAIAP3/AAAAAAAAAAAKAP3/AAAAAAAAAAAHAAAAAQAAAAAAAAAEAP//AQAAAAAAAAAGAP//AQAAAAAAAAAIAP//AQAAAAAAAAAKAP//AQAAAAAAAAAJAP3/AQAAAAAAAAALAP3/AQAAAAAAAAADAP3/AQAAAAAAAAABAP3/AQAAAAAAAAAGAPz/AQAAAAAAAAAIAPz/AQAAAAAAAAAKAPz/AQAAAAAAAAAIAPn/AQAAAAAAAAAGAPn/AQAAAAAAAAAEAPn/AQAAAAAAAAACAPn/AQAAAAAAAAAKAPn/AQAAAAAAAAALAPr/AQAAAAAAAAAJAPr/AQAAAAAAAAAHAPr/AQAAAAAAAAAFAPr/AQAAAAAAAAADAPr/AQAAAAAAAAABAPr/AQAAAAAAAAAFAPf/AQAAAAAAAAAHAPf/AQAAAAAAAAAFAP//AgAAAAAAAAAHAP//AgAAAAAAAAAJAP//AgAAAAAAAAAKAP7/AgAAAAAAAAAEAP7/AgAAAAAAAAACAP7/AgAAAAAAAAABAPz/AgAAAAAAAAAHAPz/AgAAAAAAAAAJAPz/AgAAAAAAAAALAPz/AgAAAAAAAAAKAPv/AgAAAAAAAAAIAPv/AgAAAAAAAAAGAPv/AgAAAAAAAAAEAPv/AgAAAAAAAAACAPv/AgAAAAAAAAABAPn/AgAAAAAAAAADAPn/AgAAAAAAAAAFAPn/AgAAAAAAAAAHAPn/AgAAAAAAAAAJAPn/AgAAAAAAAAALAPn/AgAAAAAAAAAIAPj/AgAAAAAAAAAGAPj/AgAAAAAAAAAEAPj/AgAAAAAAAAA=")
 tile_set = SubResource("TileSet_847lo")
 script = ExtResource("4_drth0")
 
 [node name="UnitController" parent="." instance=ExtResource("5_eatxl")]
 unique_name_in_owner = true
-
-[node name="unit" parent="UnitController" instance=ExtResource("6_v6cg1")]
-position = Vector2(210, -126)
-def = ExtResource("7_lgrju")
-
-[node name="unit2" parent="UnitController" instance=ExtResource("6_v6cg1")]
-position = Vector2(211, -71)
-def = ExtResource("7_lgrju")
-
-[node name="unit3" parent="UnitController" instance=ExtResource("6_v6cg1")]
-position = Vector2(136, -113)
-def = ExtResource("7_lgrju")
 
 [node name="enemy1" parent="UnitController" instance=ExtResource("6_v6cg1")]
 modulate = Color(0.205652, 0.178439, 0.203518, 1)
@@ -72,6 +65,80 @@ position = Vector2(88, -109)
 def = ExtResource("7_lgrju")
 team = 1
 move_rotation = 3
+
+[node name="white" type="Node2D" parent="UnitController"]
+
+[node name="unit" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(114, -42)
+def = ExtResource("7_lgrju")
+
+[node name="unit2" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(89, -28)
+def = ExtResource("7_lgrju")
+
+[node name="unit3" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(60, -16)
+def = ExtResource("7_lgrju")
+
+[node name="unit4" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(136, -56)
+def = ExtResource("7_lgrju")
+
+[node name="unit5" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(161, -69)
+def = ExtResource("7_lgrju")
+
+[node name="unit6" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(184, -58)
+def = ExtResource("7_lgrju")
+
+[node name="unit7" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(254, -16)
+def = ExtResource("7_lgrju")
+
+[node name="unit8" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(234, -29)
+def = ExtResource("7_lgrju")
+
+[node name="unit9" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(208, -42)
+def = ExtResource("7_lgrju")
+
+[node name="r1" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(87, -3)
+def = ExtResource("8_lgrju")
+
+[node name="r2" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(232, -2)
+def = ExtResource("8_lgrju")
+
+[node name="k1" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(113, 13)
+def = ExtResource("9_wcq6u")
+
+[node name="k2" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(208, 12)
+def = ExtResource("9_wcq6u")
+
+[node name="b1" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(160, 40)
+def = ExtResource("10_uaria")
+
+[node name="b2" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(160, 16)
+def = ExtResource("10_uaria")
+
+[node name="b3" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(161, -13)
+def = ExtResource("10_uaria")
+
+[node name="king" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(184, 27)
+def = ExtResource("11_o5tst")
+
+[node name="queen" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
+position = Vector2(137, 27)
+def = ExtResource("12_mkuxx")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(208, -121)

@@ -20,8 +20,8 @@ enum BlockMode {
 @export_group("Path")
 ## All values relative to the origin at (0, 0)
 @export var path: Array[Vector2i] = []
-## All values relative to the origin at (0, 0)
-@export var end_point: Vector2i
+## All values relative to the origin at (0, 0). If left as max, will be set to last tile on path
+@export var end_point: Vector2i = Vector2i.MAX
 @export var tile_block_mode: BlockMode
 @export var ally_unit_block_mode: BlockMode
 @export var enemy_unit_block_mode: BlockMode
@@ -70,6 +70,8 @@ func to_action_instance(unit: Unit) -> ActionInstance:
 	# Calculate how range affects the ability
 	var constructed_path: Array[Vector2i] = path.duplicate()
 	var constructed_end_point: Vector2i = end_point
+	if constructed_end_point == Vector2i.MAX:
+		constructed_end_point = path[-1]
 	if affected_by_range:
 		for n in unit.base_range:
 			var last_cell: Vector2i = constructed_path[-1]

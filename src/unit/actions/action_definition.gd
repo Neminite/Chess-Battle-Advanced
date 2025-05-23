@@ -58,24 +58,20 @@ enum BlockMode {
 ## Effects to apply to the target
 @export var target_effects: Array[EffectBase] = [preload("res://src/unit/effects/default/capture_effect.tres")]
 
-var full_path: Array:
-	get:
-		return path + [end_point]
-
 func to_action_instance(unit: Unit) -> ActionInstance:
 	var current_cell: Vector2i = unit.cell
 	var current_rot: int = unit.move_rotation
 	var ac := ActionInstance.new(self, unit)
-	
 	# Calculate how range affects the ability
 	var constructed_path: Array[Vector2i] = path.duplicate()
 	var constructed_end_point: Vector2i = end_point
 	if constructed_end_point == Vector2i.MAX:
 		constructed_end_point = path[-1]
+	var init_end_point: Vector2i = constructed_end_point
 	if affected_by_range:
 		for n in unit.base_range:
 			var last_cell: Vector2i = constructed_path[-1]
-			constructed_end_point += end_point
+			constructed_end_point += init_end_point
 			for cell in path:
 				constructed_path.append(cell + last_cell)
 			

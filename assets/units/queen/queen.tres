@@ -282,6 +282,6 @@ name = "Queen"
 sprite = ExtResource("9_6gy4s")
 type_components = Array[PackedScene]([])
 move_definitions = Array[ExtResource("1_j5jsv")]([SubResource("Resource_uxb4u"), SubResource("Resource_1t823"), SubResource("Resource_fvy1s"), SubResource("Resource_pkdg2"), SubResource("Resource_mbaex"), SubResource("Resource_tsh13"), SubResource("Resource_mduie"), SubResource("Resource_c12nj"), SubResource("Resource_p5rq1"), SubResource("Resource_8hg7g"), SubResource("Resource_tywyg"), SubResource("Resource_igx27")])
-base_range = 1
+base_range = 11
 starting_energy = 1
 metadata/_custom_type_script = "uid://bccsvcfs76tll"

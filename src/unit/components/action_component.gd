@@ -81,10 +81,10 @@ func _filter_ais(ais: Array[ActionInstance]) -> Array[ActionInstance]:
 		
 		match block_mode:
 			ActionDefinition.BlockMode.TRUNCATE_BEFORE:
-				ai.end_point = block
-				var idx := ai.full_path.find(ai.end_point)
+				var idx := ai.full_path.find(block)
 				ai.path.assign(ai.full_path.slice(0, idx))
 				if ai.path.size() > 0:
+					ai.end_point = ai.path[-1]
 					_process_unblocked(valid, ai)
 				continue
 			ActionDefinition.BlockMode.TRUNCATE_ON:
@@ -106,7 +106,7 @@ func _process_unblocked(valid_ais: Array[ActionInstance], ai: ActionInstance) ->
 		valid_ais.append(ai)
 	if ai.definition.generate_subpaths and ai.path.size() > 1:
 		var ai_subpath := ai.duplicate()
-		# Remove last tile of path
+		# Remove last tile of path8
 		ai_subpath.path = ai_subpath.path.slice(0, -1)
 		ai_subpath.end_point = ai_subpath.path[ai_subpath.path.size() - 1]
 		# Recursively generate and add subpaths

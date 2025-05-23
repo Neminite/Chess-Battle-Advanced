@@ -52,20 +52,6 @@ script = ExtResource("4_drth0")
 [node name="UnitController" parent="." instance=ExtResource("5_eatxl")]
 unique_name_in_owner = true
 
-[node name="enemy1" parent="UnitController" instance=ExtResource("6_v6cg1")]
-modulate = Color(0.205652, 0.178439, 0.203518, 1)
-position = Vector2(160, -154)
-def = ExtResource("7_lgrju")
-team = 1
-move_rotation = 3
-
-[node name="enemy2" parent="UnitController" instance=ExtResource("6_v6cg1")]
-modulate = Color(0.205652, 0.178439, 0.203518, 1)
-position = Vector2(88, -109)
-def = ExtResource("7_lgrju")
-team = 1
-move_rotation = 3
-
 [node name="white" type="Node2D" parent="UnitController"]
 
 [node name="unit" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
@@ -125,7 +111,7 @@ position = Vector2(160, 40)
 def = ExtResource("10_uaria")
 
 [node name="b2" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
-position = Vector2(160, 16)
+position = Vector2(159, 14)
 def = ExtResource("10_uaria")
 
 [node name="b3" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
@@ -139,6 +125,137 @@ def = ExtResource("11_o5tst")
 [node name="queen" parent="UnitController/white" instance=ExtResource("6_v6cg1")]
 position = Vector2(137, 27)
 def = ExtResource("12_mkuxx")
+
+[node name="black" type="Node2D" parent="UnitController"]
+modulate = Color(0.194349, 0.194349, 0.194349, 1)
+position = Vector2(320, -361)
+rotation = 3.14159
+
+[node name="unit" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(113, -207)
+rotation = 3.14159
+def = ExtResource("7_lgrju")
+team = 1
+move_rotation = 3
+
+[node name="unit2" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(90, -193)
+rotation = 3.14159
+def = ExtResource("7_lgrju")
+team = 1
+move_rotation = 3
+
+[node name="unit3" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(61, -181)
+rotation = 3.14159
+def = ExtResource("7_lgrju")
+team = 1
+move_rotation = 3
+
+[node name="unit4" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(137, -221)
+rotation = 3.14159
+def = ExtResource("7_lgrju")
+team = 1
+move_rotation = 3
+
+[node name="unit5" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(159, -235)
+rotation = 3.14159
+def = ExtResource("7_lgrju")
+team = 1
+move_rotation = 3
+
+[node name="unit6" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(185, -221)
+rotation = 3.14159
+def = ExtResource("7_lgrju")
+team = 1
+move_rotation = 3
+
+[node name="unit7" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(255, -181)
+rotation = 3.14159
+def = ExtResource("7_lgrju")
+team = 1
+move_rotation = 3
+
+[node name="unit8" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(235, -194)
+rotation = 3.14159
+def = ExtResource("7_lgrju")
+team = 1
+move_rotation = 3
+
+[node name="unit9" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(209, -207)
+rotation = 3.14159
+def = ExtResource("7_lgrju")
+team = 1
+move_rotation = 3
+
+[node name="r1" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(88, -168)
+rotation = 3.14159
+def = ExtResource("8_lgrju")
+team = 1
+move_rotation = 3
+
+[node name="r2" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(233, -167)
+rotation = 3.14159
+def = ExtResource("8_lgrju")
+team = 1
+move_rotation = 3
+
+[node name="k1" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(114, -152)
+rotation = 3.14159
+def = ExtResource("9_wcq6u")
+team = 1
+move_rotation = 3
+
+[node name="k2" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(209, -153)
+rotation = 3.14159
+def = ExtResource("9_wcq6u")
+team = 1
+move_rotation = 3
+
+[node name="b1" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(161, -125)
+rotation = 3.14159
+def = ExtResource("10_uaria")
+team = 1
+move_rotation = 3
+
+[node name="b2" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(160, -151)
+rotation = 3.14159
+def = ExtResource("10_uaria")
+team = 1
+move_rotation = 3
+
+[node name="b3" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(162, -178)
+rotation = 3.14159
+def = ExtResource("10_uaria")
+team = 1
+move_rotation = 3
+
+[node name="king" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(185, -138)
+rotation = 3.14159
+def = ExtResource("11_o5tst")
+team = 1
+move_rotation = 3
+
+[node name="queen" parent="UnitController/black" instance=ExtResource("6_v6cg1")]
+position = Vector2(138, -138)
+rotation = 3.14159
+def = ExtResource("12_mkuxx")
+team = 1
+move_rotation = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(208, -121)

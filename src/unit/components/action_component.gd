@@ -102,6 +102,7 @@ func _filter_ais(ais: Array[ActionInstance]) -> Array[ActionInstance]:
 ## This function will validate the endpoint of the AI, generate subpaths if necessary, 
 ## and append valid AIs to the input array
 func _process_unblocked(valid_ais: Array[ActionInstance], ai: ActionInstance) -> void:
+	_update_target_tiles(ai)
 	if Navigation.is_ai_endpoint_tile_valid(ai, subscribed_tiles) and ai.validate_endpoint_predicates():
 		valid_ais.append(ai)
 	if ai.definition.generate_subpaths and ai.path.size() > 1:
@@ -111,3 +112,11 @@ func _process_unblocked(valid_ais: Array[ActionInstance], ai: ActionInstance) ->
 		ai_subpath.end_point = ai_subpath.path[ai_subpath.path.size() - 1]
 		# Recursively generate and add subpaths
 		_process_unblocked(valid_ais,ai_subpath)
+		
+func _update_target_tiles(ai: ActionInstance) -> void:
+	var instanced_target_tiles: Array[Vector2i]
+	instanced_target_tiles.assign(ai.target_tiles_offset.map(
+		func (cell: Vector2i) -> Vector2i:
+			return Navigation.localize_hex(cell, ai.end_point, unit.move_rotation)
+	))
+	ai.target_tiles = instanced_target_tiles

@@ -9,7 +9,9 @@ var path: Array[Vector2i] = []
 ## Often but not always the last element of path
 ## Should always be the same if generate_sub_paths
 ## is true on the definition
+
 var end_point: Vector2i
+var target_tiles_offset: Array[Vector2i]
 var target_tiles: Array[Vector2i]
 
 var full_path: Array:
@@ -27,7 +29,7 @@ func duplicate() -> ActionInstance:
 	# Note this is a shallow copy, change this if the vectors need to be modified later
 	new_obj.path = path.duplicate()
 	new_obj.end_point = end_point
-	new_obj.target_tiles = target_tiles
+	new_obj.target_tiles_offset = target_tiles_offset
 	return new_obj
 
 ## This function will evaluate all endpoint predicates and return true if they all pass

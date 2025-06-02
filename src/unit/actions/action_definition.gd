@@ -61,7 +61,7 @@ enum BlockMode {
 func to_action_instance(unit: Unit) -> ActionInstance:
 	var current_cell: Vector2i = unit.cell
 	var current_rot: int = unit.move_rotation
-	var ac := ActionInstance.new(self, unit)
+	var ai := ActionInstance.new(self, unit)
 	# Calculate how range affects the ability
 	var constructed_path: Array[Vector2i] = path.duplicate()
 	var constructed_end_point: Vector2i = end_point
@@ -82,14 +82,9 @@ func to_action_instance(unit: Unit) -> ActionInstance:
 		func (cell: Vector2i) -> Vector2i:
 			return Navigation.localize_hex(cell, current_cell, current_rot)
 	))
-	ac.path = instanced_path
+	ai.path = instanced_path
 	var instanced_ep: Vector2i = Navigation.localize_hex(constructed_end_point, current_cell, current_rot)
-	ac.end_point = instanced_ep
-	var instanced_target_tiles: Array[Vector2i]
-	instanced_target_tiles.assign(target_tiles.map(
-		func (cell: Vector2i) -> Vector2i:
-			return Navigation.localize_hex(cell, instanced_ep, current_rot)
-	))
-	ac.target_tiles = instanced_target_tiles
-	return ac
+	ai.end_point = instanced_ep
+	ai.target_tiles_offset = target_tiles
+	return ai
 	
